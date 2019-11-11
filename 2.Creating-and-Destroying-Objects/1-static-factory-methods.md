@@ -48,7 +48,7 @@ This is a really bad idea. The user of such an API will never be able to remembe
 and will end up calling the wrong one by mistake. 
 People reading code that uses these constructors will not know what the code does without referring to the class documentation.
 
-构造函数的名称是被限定的，一个类只能有一个构造函数。
+构造函数的签名(public + 类名)是被限定的，一个类只能有一个构造函数。
 当然，程序员可以通过提供两个构造函数来绕过这个限制，这两个构造函数的参数列表仅在参数类型的顺序上有所不同。
 这样做非常不好。面对这样的 API，调用者永远无法记住该用哪个构造函数，并且最终会错误地调用不适合的构造函数。
 如果不参考类文档，阅读使用这些构造函数代码的人就不会知道代码的作用。
