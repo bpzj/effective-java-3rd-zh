@@ -7,7 +7,7 @@
 
 ## **2. Creating and Destroying Objects (创建和销毁对象)**
 - Item 1: Consider static factory methods instead of constructors
-    - [考虑使用静态工厂方法，而不是构造器](./creating-and-destroying-objects/static-factory-methods.md)
+    - [考虑使用静态工厂方法，而不是构造器](2.creating-and-destroying-objects/static-factory-methods.md)
 - Item 2: Consider a builder when faced with many constructor parameters 
 - Item 3: Enforce the singleton property with a private constructor or an enum type
 - Item 4: Enforce noninstantiability with a private constructor
