@@ -57,7 +57,7 @@
 - Item 40: Consistently use the Override annotation
 - Item 41: Use marker interfaces to define types
 
-## **7 Lambdas and Streams - Item - Item 193**
+## **7 Lambdas and Streams**
 - Item 42: Prefer lambdas to anonymous classes
 - Item 43: Prefer method references to lambdas
 - Item 44: Favor the use of standard functional interfaces
@@ -90,7 +90,7 @@
 - Item 67: Optimize judiciously
 - Item 68: Adhere to generally accepted naming conventions
 
-## **10. Exceptions - Item - Item 293**
+## **10. Exceptions**
 - Item 69: Use exceptions only for exceptional conditions
 - Item 70: Use checked exceptions for recoverable conditions and runtime exceptions for programming errors 
 - Item 71: Avoid unnecessary use of checked exceptions
@@ -101,7 +101,7 @@
 - Item 76: Strive for failure atomicity
 - Item 77: Don’t ignore exceptions
 
-## **11. Concurrency - Item - Item . 311**
+## **11. Concurrency **
 - Item 78: Synchronize access to shared mutable data
 - Item 79: Avoid excessive synchronization
 - Item 80: Prefer executors, tasks, and streams to threads
@@ -110,7 +110,7 @@
 - Item 83: Use lazy initialization judiciously
 - Item 84: Don’t depend on the thread scheduler
 
-## **12. Serialization - Item - Item . . 339**
+## **12. Serialization **
 - Item 85: Prefer alternatives to Java serialization 
 - Item 86: Implement Serializable with great caution 
 - Item 87: Consider using a custom serialized form 
