@@ -315,4 +315,4 @@ In summary, static factory methods and public constructors both have their uses,
 
 ---
 **[Back to contents of the chapter（返回章节目录）](./Introduction.md)**
-- **Next Item（下一条目）：[Item 2: Consider a builder when faced with many constructor parameters（在面对多个构造函数参数时，请考虑构建器）](../Chapter-2/Chapter-2-Item-2-Consider-a-builder-when-faced-with-many-constructor-parameters.md)**
+- **Next Item（下一条目）：[Item 2: Consider a builder when faced with many constructor parameters（在面对多个构造函数参数时，请考虑构建器）](./2-builder.md)**
