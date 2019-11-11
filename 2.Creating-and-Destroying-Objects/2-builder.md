@@ -251,7 +251,7 @@ If a check fails, throw an IllegalArgumentException (Item 72) whose detail messa
 each nested in the corresponding class. Abstract classes have abstract builders; concrete classes have concrete builders. 
 For example,consider an abstract class at the root of a hierarchy representing various kinds of pizza:
 
-构建者模式非常适合于类层次结构。使用构建器的并行层次结构，
+**构建者模式非常适合于类层次结构**。使用构建器的并行层次结构，
 每个构建器都嵌套在相应的类中。抽象类有抽象类构建器；具体类有具体类构建器。
 例如，考虑一个在层次结构处于最低端的抽象类，它代表各种比萨饼：
 
@@ -288,13 +288,17 @@ public abstract class Pizza {
 
 Note that Pizza.Builder is a generic type with a recursive type parameter (Item 30). 
 This, along with the abstract self method, allows method chaining to work properly in subclasses, without the need for casts. 
-This workaround for the fact that Java lacks a self type is known as the _simulated self-type_ idiom. Here are two concrete subclasses of Pizza, one of which represents a standard New-York-style pizza, the other a calzone. The former has a required size parameter,while the latter lets you specify whether sauce should be inside or out:
+This workaround for the fact that Java lacks a self type is known as the _simulated self-type_ idiom. 
+Here are two concrete subclasses of Pizza, one of which represents a standard New-York-style pizza, the other a calzone. 
+The former has a required size parameter,while the latter lets you specify whether sauce should be inside or out:
 
 请注意，`Pizza.Builder` 是具有递归类型参数的泛型类型（[Item-31](../Chapter-5/Chapter-5-Item-31-Use-bounded-wildcards-to-increase-API-flexibility.md)）。
 这与抽象 self 方法一起，允许方法链接在子类中正常工作，而不需要强制转换。
-对于 Java 缺少自类型这一事实，这种变通方法称为 _模拟自类型_ 习惯用法。这里有两个具体的比萨子类，一个是标准的纽约风格的比萨，另一个是 calzone。前者有一个所需的大小参数，而后者让你指定酱料应该是内部还是外部：
+对于 Java 缺少自类型这一事实，这种变通方法称为 _模拟自类型_ 习惯用法。
+这里有两个具体的比萨子类，一个是标准的纽约风格的比萨，另一个是 calzone。
+前者有一个所需的大小参数，而后者让你指定酱料应该是内部还是外部：
 
-```
+```java
 import java.util.Objects;
 
 public class NyPizza extends Pizza {
@@ -355,34 +359,64 @@ public class Calzone extends Pizza {
 }
 ```
 
-Note that the build method in each subclass’s builder is declared to return the correct subclass: the build method of NyPizza.Builder returns NyPizza, while the one in Calzone.Builder returns Calzone. This technique, wherein a subclass method is declared to return a subtype of the return type declared in the super-class, is known as covariant return typing. It allows clients to use these builders without the need for casting.The client code for these "hierarchical builders" is essentially identical to the code for the simple NutritionFacts builder. The example client code shown next assumes static imports on enum constants for brevity:
+Note that the build method in each subclass’s builder is declared to return the correct subclass: 
+the build method of NyPizza.Builder returns NyPizza, while the one in Calzone.Builder returns Calzone. 
+This technique, wherein a subclass method is declared to return a subtype of the return type declared in the superclass, 
+is known as _covariant return typing_. It allows clients to use these builders without the need for casting. 
+The client code for these "hierarchical builders" is essentially identical to the code for the simple NutritionFacts builder. 
+The example client code shown next assumes static imports on enum constants for brevity:
 
-注意，每个子类的构建器中的构建方法声明为返回正确的子类：构建的方法 `NyPizza.Builder` 返回 NyPizza，而在 `Calzone.Builder` 则返回 Calzone。这种技术称为协变返回类型，其中一个子类方法声明为返回超类中声明的返回类型的子类型。它允许客户使用这些构建器，而不需要强制转换。这些「层次构建器」的客户端代码与简单的 NutritionFacts 构建器的代码基本相同。为简洁起见，下面显示的示例客户端代码假定枚举常量上的静态导入：
+注意，每个子类的构建器中的构建方法声明为返回正确的子类：构建的方法 `NyPizza.Builder` 返回 NyPizza，而在 `Calzone.Builder` 则返回 Calzone。
+这种技术称为协变返回类型，其中一个子类方法声明为返回父类中声明的返回类型的子类型。
+它允许客户使用这些构建器，而不需要强制转换。这些「层次构建器」的客户端代码与简单的 NutritionFacts 构建器的代码基本相同。
+为简洁起见，下面显示的示例客户端代码，假定已经 import 静态枚举常量：
 
-```
+```jshelllanguage
 NyPizza pizza = new NyPizza.Builder(SMALL)
-.addTopping(SAUSAGE).addTopping(ONION).build();
+        .addTopping(SAUSAGE).addTopping(ONION).build();
 Calzone calzone = new Calzone.Builder()
-.addTopping(HAM).sauceInside().build();
+        .addTopping(HAM).sauceInside().build();
 ```
 
-A minor advantage of builders over constructors is that builders can have multiple varargs parameters because each parameter is specified in its own method. Alternatively, builders can aggregate the parameters passed into multiple calls to a method into a single field, as demonstrated in the addTopping method earlier.
+A minor advantage of builders over constructors is that builders can have multiple varargs parameters 
+because each parameter is specified in its own method. 
+Alternatively, builders can aggregate the parameters passed into multiple calls to a method into a single field, 
+as demonstrated in the addTopping method earlier.
 
-与构造函数相比，构造函数的一个小优点是构造函数可以有多个变量参数，因为每个参数都是在自己的方法中指定的。或者，构建器可以将传递给一个方法的多个调用的参数聚合到单个字段中，如前面的 addTopping 方法中所示。
+与构造函数相比，构造函数的一个小优点是构造函数可以有多个变量参数，因为每个参数都是在自己的方法中指定的。
+或者，构建器可以将传递给一个方法的多个调用的参数聚合到单个字段中，如前面的 addTopping 方法中所示。
 
-The Builder pattern is quite flexible. A single builder can be used repeatedly to build multiple objects. The parameters of the builder can be tweaked between invocations of the build method to vary the objects that are created. A builder can fill in some fields automatically upon object creation, such as a serial number that increases each time an object is created.
+The Builder pattern is quite flexible. A single builder can be used repeatedly to build multiple objects. 
+The parameters of the builder can be tweaked between invocations of the build method to vary the objects that are created. 
+A builder can fill in some fields automatically upon object creation, such as a serial number that increases each time an object is created.
 
-构建者模式非常灵活。一个构建器可以多次用于构建多个对象。构建器的参数可以在构建方法的调用之间进行调整，以改变创建的对象。构建器可以在创建对象时自动填充某些字段，例如在每次创建对象时增加的序列号。
+构建者模式非常灵活。一个构建器可以多次用于构建多个对象。
+构建器的参数可以在构建方法的调用之间进行调整，以改变创建的对象。
+构建器可以在创建对象时自动填充某些字段，例如在每次创建对象时增加的序列号。
 
-The Builder pattern has disadvantages as well. In order to create an object,you must first create its builder. While the cost of creating this builder is unlikely to be noticeable in practice, it could be a problem in performance-critical situations. Also, the Builder pattern is more verbose than the telescoping constructor pattern, so it should be used only if there are enough parameters to make it worthwhile, say four or more. But keep in mind that you may want to add more parameters in the future. But if you start out with constructors or static factories and switch to a builder when the class evolves to the point where the number of parameters gets out of hand, the obsolete constructors or static factories will stick out like a sore thumb. Therefore, it’s often better to start with a builder in the first place.
+The Builder pattern has disadvantages as well. In order to create an object,you must first create its builder. 
+While the cost of creating this builder is unlikely to be noticeable in practice, it could be a problem in performance-critical situations. 
+Also, the Builder pattern is more verbose than the telescoping constructor pattern, so it should be used only if there are 
+enough parameters to make it worthwhile, say four or more. But keep in mind that you may want to add more parameters in the future. 
+But if you start out with constructors or static factories and switch to a builder when the class evolves to the point 
+where the number of parameters gets out of hand, the obsolete constructors or static factories will stick out like a sore thumb. 
+Therefore, it’s often better to start with a builder in the first place.
 
-构建者模式也有缺点。为了创建一个对象，你必须首先创建它的构建器。虽然在实际应用中创建这个构建器的成本可能并不显著，但在以性能为关键的场景下，这可能会是一个问题。而且，构建者模式比可伸缩构造函数模式更冗长，因此只有在有足够多的参数时才值得使用，比如有 4 个或更多参数时，才应该使用它。但是请记住，你可能希望在将来添加更多的参数。但是，如果你以构造函数或静态工厂开始，直至类扩展到参数数量无法控制的程度时，也会切换到构建器，但是过时的构造函数或静态工厂将很难处理。因此，最好一开始就从构建器开始。
+构建者模式也有缺点。为了创建一个对象，你必须首先创建它的构建器。
+虽然在实际应用中创建这个构建器的成本可能并不显著，但在性能为关键的场景下，这可能是个问题。
+而且，构建者模式比可伸缩构造函数模式更冗长，因此只有在有足够多的参数时才值得使用，
+比如有 4 个或更多参数时，才应该使用它。但是请记住，你可能希望在将来添加更多的参数。
+但是，如果你以构造函数或静态工厂开始，直至类扩展到参数数量无法控制的程度时，也会切换到构建器，但是过时的构造函数或静态工厂将很难处理。
+因此，最好一开始就从构建器开始。
 
-In summary, the Builder pattern is a good choice when designing classes whose constructors or static factories would have more than a handful of parameters, especially if many of the parameters are optional or of identical type. Client code is much easier to read and write with builders than with telescoping constructors, and builders are much safer than JavaBeans.
+In summary, **the Builder pattern is a good choice when designing classes whose constructors or static factories would have more than a handful of parameters,** 
+especially if many of the parameters are optional or of identical type. 
+Client code is much easier to read and write with builders than with telescoping constructors, and builders are much safer than JavaBeans.
 
-总之，在设计构造函数或静态工厂的类时，构建者模式是一个很好的选择，特别是当许多参数是可选的或具有相同类型时。与可伸缩构造函数相比，使用构建器客户端代码更容易读写，而且构建器比 JavaBean 更安全。
+总之，在设计构造函数或静态工厂的类时，构建者模式是一个很好的选择，特别是当许多参数是可选的或具有相同类型时。
+与可伸缩构造函数相比，使用构建器客户端代码更容易读写，而且构建器比 JavaBean 更安全。
 
 ---
-**[Back to contents of the chapter（返回章节目录）](../Chapter-2/Chapter-2-Introduction.md)**
-- **Previous Item（上一条目）：[Item 1: Consider static factory methods instead of constructors（考虑以静态工厂方法代替构造函数）](../Chapter-2/Chapter-2-Item-1-Consider-static-factory-methods-instead-of-constructors.md)**
-- **Next Item（下一条目）：[Item 3: Enforce the singleton property with a private constructor or an enum type（使用私有构造函数或枚举类型实施单例属性）](../Chapter-2/Chapter-2-Item-3-Enforce-the-singleton-property-with-a-private-constructor-or-an-enum-type.md)**
+**[Back to contents of the chapter（返回章节目录）](./Introduction.md)**
+- **Previous Item（上一条目）：[Item 1: Consider static factory methods instead of constructors（考虑以静态工厂方法代替构造函数）](1-static-factory-methods.md)**
+- **Next Item（下一条目）：[Item 3: Enforce the singleton property with a private constructor or an enum type（使用私有构造函数或枚举类型实施单例属性）](./3-singleton.md)**
