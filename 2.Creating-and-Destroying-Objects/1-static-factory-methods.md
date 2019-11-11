@@ -88,8 +88,6 @@ This is the basis of the Flyweight pattern [Gamma95]. Enum types (Item 34) provi
 同时，它允许一个不可变的值类（[Item-17]()）保证不存在两个相同的实例：当且仅当 `a==b`时，才有 `a.equals(b)`。
 这是享元模式的基础 [Gamma95]。枚举类型（[Item-34]()）提供了这种保证。
 
-**译注：原文 noninstantiable 应修改为 non-instantiable ，译为「不可实例化的」**
-
 **A third advantage of static factory methods is that, unlike constructors, 
 they can return an object of any subtype of their return type.** 
 This gives you great flexibility in choosing the class of the returned object.
@@ -117,8 +115,6 @@ The classes of the returned objects are all nonpublic.
 一个名为 Type 的接口的静态工厂方法被放在一个名为 Types 的不可实例化的伴随类（[Item-4](4-immutable.md)）中。
 例如，Java 的 Collections 框架的接口有 45 个实现，提供了不可修改的集合、同步集合等。
 几乎所有这些实现都是通过一个非实例化类（`java.util.Collections`）中的静态工厂方法导出的。返回对象的类都不是 public类。
-
-**译注：原文 noninstantiable 应修改为 non-instantiable ，译为「不可实例化的」**
 
 The Collections Framework API is much smaller than it would have been had it exported forty-five separate public classes, 
 one for each convenience implementation. 
@@ -307,6 +303,8 @@ List<Complaint> litany = Collections.list(legacyLitany);
 In summary, static factory methods and public constructors both have their uses, and it pays to understand their relative merits. Often static factories are preferable, so avoid the reflex to provide public constructors without first considering static factories.
 
 总之，静态工厂方法和公共构造器都有各自的用途，理解它们相比而言的优点是值得的。通常静态工厂的方式更可取，因此应避免在没有考虑静态工厂的情况下就提供公共构造函数。
+
+**译注：原文 noninstantiable 应修改为 non-instantiable ，译为「不可实例化的」**
 
 ---
 **[Back to contents of the chapter（返回章节目录）](../Chapter-2/Chapter-2-Introduction.md)**
