@@ -308,7 +308,7 @@ Javadoc 工具总有一天会关注到静态工厂方法。与此同时，
 In summary, static factory methods and public constructors both have their uses, and it pays to understand their relative merits.
  Often static factories are preferable, so avoid the reflex to provide public constructors without first considering static factories.
 
-总之，静态工厂方法和公共构造器都有各自的用途，理解它们相比而言的优点是值得的。
+总之，静态工厂方法和公共构造器都有各自的用途，理解它们各自的优点是很有必要的。
 通常静态工厂的方式更可取，因此应先考虑静态工厂方法，再考虑提供公共构造函数。
 
 **译注：原文 noninstantiable 应修改为 non-instantiable ，译为「不可实例化的」**
