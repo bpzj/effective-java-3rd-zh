@@ -3,14 +3,15 @@
 
 # 目录(Contents)
 
-## **Chapter1. Introduction (引言)**
+## **Chapter 1. Introduction (引言)**
 
-## **Chapter2. Creating and Destroying Objects (创建和销毁对象)**
+## **Chapter 2. Creating and Destroying Objects (创建和销毁对象)**
+- [Chapter 2 Introduction](2.Creating-and-Destroying-Objects/1-static-factory-methods.md)
 - [Item 1: Consider static factory methods instead of constructors
-  (考虑使用静态工厂方法，而不是构造函数) ](2.creating-and-destroying-objects/1.static-factory-methods.md)
+  (考虑使用静态工厂方法，而不是构造函数) ](2.Creating-and-Destroying-Objects/1-static-factory-methods.md)
 
 - [Item 2: Consider a builder when faced with many constructor parameters
-  (可选参数过多导致过多构造函数时,考虑builder)](2.creating-and-destroying-objects/2.builder.md)
+  (可选参数过多导致过多构造函数时,考虑builder)](2.Creating-and-Destroying-Objects/2.builder.md)
 - Item 3: Enforce the singleton property with a private constructor or an enum type
 - Item 4: Enforce noninstantiability with a private constructor
 - Item 5: Prefer dependency injection to hardwiring resources
