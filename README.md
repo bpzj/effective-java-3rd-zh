@@ -101,7 +101,7 @@
 - Item 76: Strive for failure atomicity
 - Item 77: Don’t ignore exceptions
 
-## **11. Concurrency **
+## **11. Concurrency**
 - Item 78: Synchronize access to shared mutable data
 - Item 79: Avoid excessive synchronization
 - Item 80: Prefer executors, tasks, and streams to threads
@@ -110,7 +110,7 @@
 - Item 83: Use lazy initialization judiciously
 - Item 84: Don’t depend on the thread scheduler
 
-## **12. Serialization **
+## **12. Serialization**
 - Item 85: Prefer alternatives to Java serialization 
 - Item 86: Implement Serializable with great caution 
 - Item 87: Consider using a custom serialized form 
