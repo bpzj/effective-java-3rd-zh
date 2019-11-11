@@ -147,16 +147,18 @@ Moreover, it can cause errors at runtime because the compiler cannot ensure that
 
 Luckily, there is a third alternative that combines the safety of the telescoping constructor pattern with the readability of the JavaBeans pattern. 
 It is a form of the Builder pattern [Gamma95]. Instead of making the desired object directly, 
-the client calls a constructor (or static factory) with all of the required parameters and gets a builder object. 
+the client calls a constructor (or static factory) with all of the required parameters and gets a _builder object_. 
 Then the client calls setter-like methods on the builder object to set each optional parameter of interest. 
 Finally, the client calls a parameterless build method to generate the object, which is typically immutable. 
-The builder is typically a static member class (Item 24) of the class itbuilds. Here’s how it looks in practice:
+The builder is typically a static member class (Item 24) of the class it builds. Here’s how it looks in practice:
 
-幸运的是，还有第三种选择，它结合了可伸缩构造函数模式的安全性和 JavaBean 模式的可读性。它是建造者模式的一种形式 [Gamma95]。
+幸运的是，还有第三种选择，它结合了可伸缩构造函数模式的安全性和 JavaBean 模式的可读性。它是构建者模式的一种形式 [Gamma95]。
 客户端不直接生成所需的对象，而是使用所有必需的参数调用构造函数（或静态工厂），并获得一个 builder 对象。
-然后，客户端在构建器对象上调用像 setter 这样的方法来设置每个感兴趣的可选参数。最后，客户端调用一个无参数的构建方法来生成对象，这通常是不可变的。构建器通常是它构建的类的静态成员类（[Item-24](../Chapter-4/Chapter-4-Item-24-Favor-static-member-classes-over-nonstatic.md)）。下面是它在实际应用中的样子：
+然后，客户端在构建器对象上调用像 setter 这样的方法来设置每个感兴趣的可选参数。
+最后，客户端调用一个无参数的构建方法来生成对象，这通常是不可变的。
+构建器通常是它构建的类的静态成员类（[Item-24](../Chapter-4/Chapter-4-Item-24-Favor-static-member-classes-over-nonstatic.md)）。下面是它在实际应用中的样子：
 
-```
+```java
 // Builder Pattern
 public class NutritionFacts {
     private final int servingSize;
@@ -217,28 +219,43 @@ public class NutritionFacts {
 }
 ```
 
-The NutritionFacts class is immutable, and all parameter default values are in one place. The builder’s setter methods return the builder itself so that invocations can be chained, resulting in a fluent API. Here’s how the client code looks:
+The NutritionFacts class is immutable, and all parameter default values are in one place. 
+The builder’s setter methods return the builder itself so that invocations can be chained, 
+resulting in a fluent API. Here’s how the client code looks:
 
-NutritionFacts 类是不可变的，所有参数默认值都在一个位置。构建器的 setter 方法返回构建器本身，这样就可以链式调用，从而得到一个流畅的 API。下面是客户端代码的样子：
+NutritionFacts 类是不可变的，所有参数默认值都在一个地方。
+构建器的 setter 方法返回构建器本身，这样就可以链式调用，从而得到一个流畅的 API。下面是客户端代码的样子：
 
-```
+```jshelllanguage
 NutritionFacts cocaCola = new NutritionFacts.Builder(240, 8)
-.calories(100).sodium(35).carbohydrate(27).build();
+    .calories(100).sodium(35).carbohydrate(27).build();
 ```
 
-This client code is easy to write and, more importantly, easy to read. The Builder pattern simulates named optional parameters as found in Python and Scala.
+This client code is easy to write and, more importantly, easy to read. 
+**The Builder pattern simulates named optional parameters** as found in Python and Scala.
 
-该客户端代码易于编写，更重要的是易于阅读。建造者模式模拟 Python 和 Scala 中的可选参数。
+该客户端代码易于编写，更重要的是易于阅读。构建者模式模拟 Python 和 Scala 中的可选参数。
 
-Validity（n.有效性） checks were omitted（v.遗漏，省略；adj.省去的） for brevity（n.简洁）. To detect invalid parameters as soon as possible, check parameter validity in the builder’s constructor and methods.Check invariants involving multiple parameters in the constructor invoked by the build method. To ensure these invariants against attack, do the checks on object fields after copying parameters from the builder (Item 50). If a check fails, throw an IllegalArgumentException (Item 72) whose detail message indicates which parameters are invalid (Item 75).
+Validity checks were omitted for brevity. To detect invalid parameters as soon as possible, 
+check parameter validity in the builder’s constructor and methods. 
+Check invariants involving multiple parameters in the constructor invoked by the build method. 
+To ensure these invariants against attack, do the checks on object fields after copying parameters from the builder (Item 50). 
+If a check fails, throw an IllegalArgumentException (Item 72) whose detail message indicates which parameters are invalid (Item 75).
 
-为了简洁，省略了有效性检查。为了尽快检测无效的参数，请检查构建器的构造函数和方法中的参数有效性。检查构建方法调用的构造函数中涉及多个参数的不变量。为了确保这些不变量不受攻击，在从构建器复制参数之后检查对象字段（[Item-50](../Chapter-8/Chapter-8-Item-50-Make-defensive-copies-when-needed.md)）。如果检查失败，抛出一个 IllegalArgumentException（[Item-72](../Chapter-10/Chapter-10-Item-72-Favor-the-use-of-standard-exceptions.md)），它的详细消息指示哪些参数无效（[Item-75](../Chapter-10/Chapter-10-Item-75-Include-failure-capture-information-in-detail-messages.md)）。
+为了简洁，省略了有效性检查。为了尽早检测无效的参数，要在构建器的构造函数和方法中的检查参数的有效性。
+在 build() 方法调用的构造函数中，涉及多个参数，需要校验这些参数的不变性。
+为了确保这些不变量不受攻击，在从构建器复制参数之后检查对象字段（[Item-50](../Chapter-8/Item-50-Make-defensive-copies-when-needed.md)）。
+如果检查失败，抛出一个 IllegalArgumentException（[Item-72](../Chapter-10/Item-72-Favor-the-use-of-standard-exceptions.md)），它的详细消息指示哪些参数无效（[Item-75](../Chapter-10/Chapter-10-Item-75-Include-failure-capture-information-in-detail-messages.md)）。
 
-The Builder pattern is well suited to class hierarchies. Use a parallel hierarchy of builders, each nested in the corresponding class. Abstract classes have abstract builders; concrete classes have concrete builders. For example,consider an abstract class at the root of a hierarchy representing various kinds of pizza:
+**The Builder pattern is well suited to class hierarchies.** Use a parallel hierarchy of builders, 
+each nested in the corresponding class. Abstract classes have abstract builders; concrete classes have concrete builders. 
+For example,consider an abstract class at the root of a hierarchy representing various kinds of pizza:
 
-建造者模式非常适合于类层次结构。使用构建器的并行层次结构，每个构建器都嵌套在相应的类中。抽象类有抽象类构建器；具体类有具体类构建器。例如，考虑一个在层次结构处于最低端的抽象类，它代表各种比萨饼：
+构建者模式非常适合于类层次结构。使用构建器的并行层次结构，
+每个构建器都嵌套在相应的类中。抽象类有抽象类构建器；具体类有具体类构建器。
+例如，考虑一个在层次结构处于最低端的抽象类，它代表各种比萨饼：
 
-```
+```java
 import java.util.EnumSet;
 import java.util.Objects;
 import java.util.Set;
@@ -269,9 +286,13 @@ public abstract class Pizza {
 }
 ```
 
-Note that Pizza.Builder is a generic type with a recursive type parameter (Item 30). This, along with the abstract self method, allows method chaining to work properly in subclasses, without the need for casts. This workaround for the fact that Java lacks a self type is known as the simulated self-type idiom. Here are two concrete subclasses of Pizza, one of which represents a standard New-York-style pizza, the other a calzone. The former has a required size parameter,while the latter lets you specify whether sauce should be inside or out:
+Note that Pizza.Builder is a generic type with a recursive type parameter (Item 30). 
+This, along with the abstract self method, allows method chaining to work properly in subclasses, without the need for casts. 
+This workaround for the fact that Java lacks a self type is known as the _simulated self-type_ idiom. Here are two concrete subclasses of Pizza, one of which represents a standard New-York-style pizza, the other a calzone. The former has a required size parameter,while the latter lets you specify whether sauce should be inside or out:
 
-请注意，`Pizza.Builder` 是具有递归类型参数的泛型类型（[Item-31](../Chapter-5/Chapter-5-Item-31-Use-bounded-wildcards-to-increase-API-flexibility.md)）。这与抽象 self 方法一起，允许方法链接在子类中正常工作，而不需要强制转换。对于 Java 缺少自类型这一事实，这种变通方法称为模拟自类型习惯用法。这里有两个具体的比萨子类，一个是标准的纽约风格的比萨，另一个是 calzone。前者有一个所需的大小参数，而后者让你指定酱料应该是内部还是外部：
+请注意，`Pizza.Builder` 是具有递归类型参数的泛型类型（[Item-31](../Chapter-5/Chapter-5-Item-31-Use-bounded-wildcards-to-increase-API-flexibility.md)）。
+这与抽象 self 方法一起，允许方法链接在子类中正常工作，而不需要强制转换。
+对于 Java 缺少自类型这一事实，这种变通方法称为 _模拟自类型_ 习惯用法。这里有两个具体的比萨子类，一个是标准的纽约风格的比萨，另一个是 calzone。前者有一个所需的大小参数，而后者让你指定酱料应该是内部还是外部：
 
 ```
 import java.util.Objects;
@@ -351,15 +372,15 @@ A minor advantage of builders over constructors is that builders can have multip
 
 The Builder pattern is quite flexible. A single builder can be used repeatedly to build multiple objects. The parameters of the builder can be tweaked between invocations of the build method to vary the objects that are created. A builder can fill in some fields automatically upon object creation, such as a serial number that increases each time an object is created.
 
-建造者模式非常灵活。一个构建器可以多次用于构建多个对象。构建器的参数可以在构建方法的调用之间进行调整，以改变创建的对象。构建器可以在创建对象时自动填充某些字段，例如在每次创建对象时增加的序列号。
+构建者模式非常灵活。一个构建器可以多次用于构建多个对象。构建器的参数可以在构建方法的调用之间进行调整，以改变创建的对象。构建器可以在创建对象时自动填充某些字段，例如在每次创建对象时增加的序列号。
 
 The Builder pattern has disadvantages as well. In order to create an object,you must first create its builder. While the cost of creating this builder is unlikely to be noticeable in practice, it could be a problem in performance-critical situations. Also, the Builder pattern is more verbose than the telescoping constructor pattern, so it should be used only if there are enough parameters to make it worthwhile, say four or more. But keep in mind that you may want to add more parameters in the future. But if you start out with constructors or static factories and switch to a builder when the class evolves to the point where the number of parameters gets out of hand, the obsolete constructors or static factories will stick out like a sore thumb. Therefore, it’s often better to start with a builder in the first place.
 
-建造者模式也有缺点。为了创建一个对象，你必须首先创建它的构建器。虽然在实际应用中创建这个构建器的成本可能并不显著，但在以性能为关键的场景下，这可能会是一个问题。而且，建造者模式比可伸缩构造函数模式更冗长，因此只有在有足够多的参数时才值得使用，比如有 4 个或更多参数时，才应该使用它。但是请记住，你可能希望在将来添加更多的参数。但是，如果你以构造函数或静态工厂开始，直至类扩展到参数数量无法控制的程度时，也会切换到构建器，但是过时的构造函数或静态工厂将很难处理。因此，最好一开始就从构建器开始。
+构建者模式也有缺点。为了创建一个对象，你必须首先创建它的构建器。虽然在实际应用中创建这个构建器的成本可能并不显著，但在以性能为关键的场景下，这可能会是一个问题。而且，构建者模式比可伸缩构造函数模式更冗长，因此只有在有足够多的参数时才值得使用，比如有 4 个或更多参数时，才应该使用它。但是请记住，你可能希望在将来添加更多的参数。但是，如果你以构造函数或静态工厂开始，直至类扩展到参数数量无法控制的程度时，也会切换到构建器，但是过时的构造函数或静态工厂将很难处理。因此，最好一开始就从构建器开始。
 
 In summary, the Builder pattern is a good choice when designing classes whose constructors or static factories would have more than a handful of parameters, especially if many of the parameters are optional or of identical type. Client code is much easier to read and write with builders than with telescoping constructors, and builders are much safer than JavaBeans.
 
-总之，在设计构造函数或静态工厂的类时，建造者模式是一个很好的选择，特别是当许多参数是可选的或具有相同类型时。与可伸缩构造函数相比，使用构建器客户端代码更容易读写，而且构建器比 JavaBean 更安全。
+总之，在设计构造函数或静态工厂的类时，构建者模式是一个很好的选择，特别是当许多参数是可选的或具有相同类型时。与可伸缩构造函数相比，使用构建器客户端代码更容易读写，而且构建器比 JavaBean 更安全。
 
 ---
 **[Back to contents of the chapter（返回章节目录）](../Chapter-2/Chapter-2-Introduction.md)**
