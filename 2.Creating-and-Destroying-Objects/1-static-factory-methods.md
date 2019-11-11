@@ -183,23 +183,23 @@ and the system makes the implementations available to clients, decoupling the cl
 服务提供者框架是一个系统，其中提供者实现一个服务，系统使客户端可以使用这些实现，从而将客户端与实现分离。
 
 There are three essential components in a service provider framework: 
-a service interface, which represents an implementation; 
-a provider registration API, which providers use to register implementations; 
-and a service access API, which clients use to obtain instances of the service. 
+a _service interface_, which represents an implementation; 
+a _provider registration API_, which providers use to register implementations; 
+and a _service access API_, which clients use to obtain instances of the service. 
 The service access API may allow clients to specify criteria for choosing an implementation. 
 In the absence of such criteria, the API returns an instance of a default implementation, 
 or allows the client to cycle through all available implementations. 
 The service access API is the flexible static factory that forms the basis of the service provider framework.
 
 服务提供者框架中有三个基本组件：
-代表实现的服务接口；
-提供者注册 API，提供者使用它来注册实现，
-以及服务访问 API，客户端使用它来获取服务的实例。
+_服务接口_：；
+_提供者注册 API_：提供者使用它来注册实现；
+以及 _服务访问 API_：客户端使用它来获取服务的实例。
 服务访问 API 允许客户端指定选择实现的标准。
 在没有这些条件的情况下，API 返回一个默认实现的实例，或者允许客户端循环使用所有可用的实现。
 服务访问 API 是灵活的静态工厂，它构成了服务提供者框架的基础。
 
-An optional fourth component of a service provider framework is a service provider interface, 
+An optional fourth component of a service provider framework is a _service provider interface_, 
 which describes a factory object that produce instances of the service interface. 
 In the absence of a service provider interface, implementations must be instantiated reflectively (Item 65). 
 In the case of JDBC, Connection plays the part of the service interface, 
@@ -208,8 +208,8 @@ DriverManager.getConnection is the service access API, and Driver is the service
 
 服务提供者框架的第四个可选组件是服务提供者接口，它描述了产生服务接口实例的工厂对象。
 在没有服务提供者接口的情况下，必须以反射的方式实例化实现（[Item-65](../Chapter-9/Chapter-9-Item-65-Prefer-interfaces-to-reflection.md)）。
-在 JDBC 中，连接扮演服务接口 DriverManager 的角色。`DriverManager.registerDriver` 是提供者注册的 API，
-`DriverManager.getConnection` 是服务访问 API，`Driver `是服务提供者接口。
+在 JDBC 中，`Connection`扮演服务接口的角色。`DriverManager.registerDriver` 是提供者注册的 API，
+`DriverManager.getConnection` 是服务访问 API，`Driver`是服务提供者接口。
 
 There are many variants of the service provider framework pattern. For example, 
 the service access API can return a richer service interface to clients than the one furnished by providers. 
@@ -232,80 +232,87 @@ use composition instead of inheritance (Item 18), and is required for immutable 
 例如，不可能在集合框架中子类化任何方便的实现类。
 这可能是一种因祸得福的做法，因为它鼓励程序员使用组合而不是继承（[Item-18](../Chapter-4/Chapter-4-Item-18-Favor-composition-over-inheritance.md)），并且对于不可变的类型（[Item-17](../Chapter-4/Chapter-4-Item-17-Minimize-mutability.md)）是必需的。
 
-**A second shortcoming of static factory methods is that they are hard for programmers to find.** They do not stand out in API documentation in the way that constructors do, so it can be difficult to figure out how to instantiate a class that provides static factory methods instead of constructors. The Javadoc tool may someday draw attention to static factory methods. In the meantime, you can reduce this problem by drawing attention to static factories in class or interface documentation and by adhering to common naming conventions. Here are some common names for static factory methods. This list is far from exhaustive:
+**A second shortcoming of static factory methods is that they are hard for programmers to find.** 
+They do not stand out in API documentation in the way that constructors do, 
+so it can be difficult to figure out how to instantiate a class that provides static factory methods instead of constructors. 
+The Javadoc tool may someday draw attention to static factory methods. In the meantime, 
+you can reduce this problem by drawing attention to static factories in class or interface documentation and by adhering to common naming conventions. 
+Here are some common names for static factory methods. This list is far from exhaustive:
 
-**静态工厂方法的第二个缺点是程序员很难找到它们。** 它们在 API 文档中不像构造函数那样引人注目，因此很难弄清楚如何实例化一个只提供静态工厂方法而没有构造函数的类。Javadoc 工具总有一天会关注到静态工厂方法。与此同时，你可以通过在类或接口文档中对静态工厂方法多加留意，以及遵守通用命名约定的方式来减少这个困扰。下面是一些静态工厂方法的常用名称。这个列表还远不够详尽：
+**静态工厂方法的第二个缺点是程序员很难找到它们。** 
+它们在 API 文档中不像构造函数那样引人注目，因此很难弄清楚如何实例化一个只提供静态工厂方法而没有构造函数的类。
+Javadoc 工具总有一天会关注到静态工厂方法。与此同时，
+你可以通过在类或接口文档中对静态工厂方法多加留意，以及遵守通用命名约定的方式来减少这个困扰。下
+面是一些静态工厂方法的常用名称。这个列表还远不够详尽：
 
 - from—A type-conversion method that takes a single parameter and returns a corresponding instance of this type, for example:
+- from，一种型转换方法，该方法接受单个参数并返回该类型的相应实例，例如：
 
-from，一种型转换方法，该方法接受单个参数并返回该类型的相应实例，例如：
-
-```
-Date d = Date.from(instant);
-```
+    ```jshelllanguage
+    Date d = Date.from(instant);
+    ```
 
 - of—An aggregation method that takes multiple parameters and returns an instance of this type that incorporates them, for example:
-
-of，一个聚合方法，它接受多个参数并返回一个包含这些参数的实例，例如：
-
-```
-Set<Rank> faceCards = EnumSet.of(JACK, QUEEN, KING);
-```
+- of，一个聚合方法，它接受多个参数并返回一个包含这些参数的实例，例如：
+    
+    ```jshelllanguage
+    Set<Rank> faceCards = EnumSet.of(JACK, QUEEN, KING);
+    ```
 
 - valueOf—A more verbose alternative to from and of, for example:
-
-valueOf，一种替代 from 和 of 但更冗长的方法，例如：
-
-```
-BigInteger prime = BigInteger.valueOf(Integer.MAX_VALUE);
-```
+- valueOf，一种替代 from 和 of 但更冗长的方法，例如：
+    
+    ```jshelllanguage
+    BigInteger prime = BigInteger.valueOf(Integer.MAX_VALUE);
+    ```
 
 - instance or getInstance—Returns an instance that is described by its parameters (if any) but cannot be said to have the same value, for example:
-
-instance 或 getInstance，返回一个实例，该实例由其参数（如果有的话）描述，但不具有相同的值，例如：
-
-```
-StackWalker luke = StackWalker.getInstance(options);
-```
+- instance 或 getInstance，返回一个实例，该实例由其参数（如果有的话）描述，但不具有相同的值，例如：
+    
+    ```jshelllanguage
+    StackWalker luke = StackWalker.getInstance(options);
+    ```
 
 - create or newInstance—Like instance or getInstance, except that the method guarantees that each call returns a new instance, for example:
 
-create 或 newInstance，与 instance 或 getInstance 类似，只是该方法保证每个调用都返回一个新实例，例如：
+- create 或 newInstance，与 instance 或 getInstance 类似，只是该方法保证每个调用都返回一个新实例，例如：
 
-```
-Object newArray = Array.newInstance(classObject, arrayLen);
-```
+    ```
+    Object newArray = Array.newInstance(classObject, arrayLen);
+    ```
 
 - getType—Like getInstance, but used if the factory method is in a different class. Type is the type of object returned by the factory method, for example:
 
-getType，类似于 getInstance，但如果工厂方法位于不同的类中，则使用此方法。其类型是工厂方法返回的对象类型，例如：
+- getType，类似于 getInstance，但如果工厂方法位于不同的类中，则使用此方法。其类型是工厂方法返回的对象类型，例如：
 
-```
-FileStore fs = Files.getFileStore(path);
-```
+    ```
+    FileStore fs = Files.getFileStore(path);
+    ```
 
 - newType—Like newInstance, but used if the factory method is in a different class. Type is the type of object returned by the factory method, for example:
 
-newType，与 newInstance 类似，但是如果工厂方法在不同的类中使用。类型是工厂方法返回的对象类型，例如：
+- newType，与 newInstance 类似，但是如果工厂方法在不同的类中使用。类型是工厂方法返回的对象类型，例如：
 
-```
-BufferedReader br = Files.newBufferedReader(path);
-```
+    ```
+    BufferedReader br = Files.newBufferedReader(path);
+    ```
 
 - type—A concise alternative to getType and newType, for example:
 
-type，一个用来替代 getType 和 newType 的比较简单的方式，例如：
+- type，一个用来替代 getType 和 newType 的比较简单的方式，例如：
 
-```
-List<Complaint> litany = Collections.list(legacyLitany);
-```
+    ```
+    List<Complaint> litany = Collections.list(legacyLitany);
+    ```
 
-In summary, static factory methods and public constructors both have their uses, and it pays to understand their relative merits. Often static factories are preferable, so avoid the reflex to provide public constructors without first considering static factories.
+In summary, static factory methods and public constructors both have their uses, and it pays to understand their relative merits.
+ Often static factories are preferable, so avoid the reflex to provide public constructors without first considering static factories.
 
-总之，静态工厂方法和公共构造器都有各自的用途，理解它们相比而言的优点是值得的。通常静态工厂的方式更可取，因此应避免在没有考虑静态工厂的情况下就提供公共构造函数。
+总之，静态工厂方法和公共构造器都有各自的用途，理解它们相比而言的优点是值得的。
+通常静态工厂的方式更可取，因此应先考虑静态工厂方法，再考虑提供公共构造函数。
 
 **译注：原文 noninstantiable 应修改为 non-instantiable ，译为「不可实例化的」**
 
 ---
-**[Back to contents of the chapter（返回章节目录）](../Chapter-2/Chapter-2-Introduction.md)**
+**[Back to contents of the chapter（返回章节目录）](./Introduction.md)**
 - **Next Item（下一条目）：[Item 2: Consider a builder when faced with many constructor parameters（在面对多个构造函数参数时，请考虑构建器）](../Chapter-2/Chapter-2-Item-2-Consider-a-builder-when-faced-with-many-constructor-parameters.md)**
