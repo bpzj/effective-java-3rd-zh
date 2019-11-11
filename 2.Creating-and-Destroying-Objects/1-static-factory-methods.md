@@ -15,7 +15,7 @@ This method translates a boolean primitive value into a Boolean object reference
 
 ```jshelllanguage
 public static Boolean valueOf(boolean b) {
-	return b ? Boolean.TRUE : Boolean.FALSE;
+    return b ? Boolean.TRUE : Boolean.FALSE;
 }
 ```
 
