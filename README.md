@@ -6,7 +6,7 @@
 ## **Chapter 1. Introduction (引言)**
 
 ## **Chapter 2. Creating and Destroying Objects (创建和销毁对象)**
-- [Chapter 2 Introduction](README.md#chapter-2-creating-and-destroying-objects-)
+- [Chapter 2 Introduction](2.Creating-and-Destroying-Objects/Introduction.md)
 - [Item 1: Consider static factory methods instead of constructors
   (考虑使用静态工厂方法，而不是构造函数) ](2.Creating-and-Destroying-Objects/1-static-factory-methods.md)
 
