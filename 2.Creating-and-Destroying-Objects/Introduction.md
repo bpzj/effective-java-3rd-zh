@@ -11,8 +11,8 @@ and how to manage any cleanup actions that must precede their destruction.
 如何确保它们被及时销毁，以及如何管理在销毁之前必须执行的清理操作。
 
 ### Contents of the chapter（章节目录）
-- [Item 1: Consider static factory methods instead of constructors（考虑以静态工厂方法代替构造函数）](1-static-factory-methods.md)
-- [Item 2: Consider a builder when faced with many constructor parameters（可选参数过多导致过多构造函数时,考虑builder）](2-builder.md)
+- [Item 1: Consider static factory methods instead of constructors（考虑以静态工厂方法代替构造函数）](2.1-static-factory-methods.md)
+- [Item 2: Consider a builder when faced with many constructor parameters（可选参数过多导致过多构造函数时,考虑builder）](2.2-builder.md)
 - [Item 3: Enforce the singleton property with a private constructor or an enum type（使用私有构造函数或枚举类型实施单例属性）](../Chapter-2/Chapter-2-Item-3-Enforce-the-singleton-property-with-a-private-constructor-or-an-enum-type.md)
 - [Item 4: Enforce noninstantiability with a private constructor（用私有构造函数实施不可实例化）](../Chapter-2/Chapter-2-Item-4-Enforce-noninstantiability-with-a-private-constructor.md)
 - [Item 5: Prefer dependency injection to hardwiring resources（依赖注入优于硬连接资源）](../Chapter-2/Chapter-2-Item-5-Prefer-dependency-injection-to-hardwiring-resources.md)
