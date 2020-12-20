@@ -69,14 +69,22 @@
 - Item 48: Use caution when making streams parallel
 
 ## **8 Methods**
-- Item 49: Check parameters for validity 
+- Item 49: Check parameters for validity
+  [(检查参数的有效性)](8.Methods/8.49-Check-parameters-for-validity.md)
 - Item 50: Make defensive copies when needed
+  [(在需要时制作防御性副本)](8.Methods/8.50-Make-defensive-copies-when-needed.md)
 - Item 51: Design method signatures carefully
+  [(仔细设计方法签名)](8.Methods/8.51-Design-method-signatures-carefully.md)
 - Item 52: Use overloading judiciously
+  [(明智地使用重载)](8.Methods/8.52-Use-overloading-judiciously.md)
 - Item 53: Use varargs judiciously
+  [(明智地使用可变参数)](8.Methods/8.53-Use-varargs-judiciously.md)
 - Item 54: Return empty collections or arrays, not nulls
+  [(返回空集合或数组，而不是 null)](8.Methods/8.54-Return-empty-collections-or-arrays-not-nulls.md)
 - Item 55: Return optionals judiciously
+  [(明智地的返回 Optional)](8.Methods/8.55-Return-optionals-judiciously.md)
 - Item 56: Write doc comments for all exposed API elements
+  [(为所有公开的 API 元素编写文档注释)](8.Methods/8.56-Write-doc-comments-for-all-exposed-API-elements.md)
 
 ## **9 General Programming**
 - Item 57: Minimize the scope of local variables
